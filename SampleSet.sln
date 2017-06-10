@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCube", "HelloCube\HelloCube.csproj", "{99080BEE-8BC4-4DC3-9349-7A3F46CEB8BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{5359E988-F8FB-4597-9655-9F976B5F1CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5359E988-F8FB-4597-9655-9F976B5F1CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5359E988-F8FB-4597-9655-9F976B5F1CF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99080BEE-8BC4-4DC3-9349-7A3F46CEB8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99080BEE-8BC4-4DC3-9349-7A3F46CEB8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99080BEE-8BC4-4DC3-9349-7A3F46CEB8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99080BEE-8BC4-4DC3-9349-7A3F46CEB8BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 		{5809F77E-DBD1-462C-92C1-358CD212FC71} = {0E5975AC-BAC5-409C-A701-EAAEA0DF28F3}
 		{D6E4E0BA-FE87-46A7-8E1E-A1B869C5F72B} = {0E5975AC-BAC5-409C-A701-EAAEA0DF28F3}
 		{5359E988-F8FB-4597-9655-9F976B5F1CF5} = {0E5975AC-BAC5-409C-A701-EAAEA0DF28F3}
+		{99080BEE-8BC4-4DC3-9349-7A3F46CEB8BC} = {D3237333-C0E4-49E6-8294-53CC1BFC5454}
 	EndGlobalSection
 EndGlobal
