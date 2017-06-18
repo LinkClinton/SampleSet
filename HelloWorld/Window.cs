@@ -4,16 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Mico;
+using Mico.Objects;
+
 using Builder;
 using Presenter;
 
 namespace HelloWorld
 {
-    public class HelloWindow : GenericWindow
+    public class Window : GenericWindow
     {
         private Surface surface;
 
-        public HelloWindow((string Title, int Width, int Height) Definition) : base(Definition)
+        private FpsCounter fpsCounter;
+
+        public Window((string Title, int Width, int Height) Definition) : base(Definition)
         {
             surface = new Surface(Handle, true)
             {
@@ -21,15 +26,17 @@ namespace HelloWorld
             };
 
             IsVisible = true;
+
+            Micos.Add(fpsCounter = new FpsCounter());
         }
 
         public override void OnUpdate(object sender)
         {
-            Manager.Surface = surface;
+            Title = Program.AppName + " FPS: " + fpsCounter.Fps.ToString();
 
-            Manager.ClearObject();
+            Micos.Exports();
 
-            Manager.FlushObject();
+            Micos.Update();
         }
     }
 }

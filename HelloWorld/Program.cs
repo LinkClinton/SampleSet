@@ -11,10 +11,12 @@ namespace HelloWorld
 {
     class Program
     {
+        public static string AppName => "HelloWorld";
+
         static void Main(string[] args)
         {
-            Application.Add(new HelloWindow(("HelloWorld", (int)(Manager.AppScale * 800),
-                (int)(Manager.AppScale * 600))));
+            Application.Add(new Window((AppName, (int)(Engine.AppScale * 800),
+                (int)(Engine.AppScale * 600))));
 
             Application.RunLoop();
 

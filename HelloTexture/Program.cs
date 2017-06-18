@@ -7,19 +7,22 @@ using System.Threading.Tasks;
 using Builder;
 using Presenter;
 
-namespace HelloCube
+namespace HelloTexture
 {
     class Program
     {
 
-        public static string AppName = "HelloCube";
+        public static string AppName => "HelloTexture";
 
         static void Main(string[] args)
         {
-            Application.Add(new Window((AppName, (int)Engine.AppScale * 800,
-                (int)Engine.AppScale * 600)));
+            Resource.Initalize();
+
+            Application.Add(new Window((AppName,
+                (int)(Engine.AppScale * 800), (int)(Engine.AppScale * 600))));
 
             Application.RunLoop();
+
         }
     }
 }

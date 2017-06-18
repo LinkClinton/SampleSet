@@ -11,7 +11,7 @@ using Mico.Objects;
 using Builder;
 using Presenter;
 
-namespace HelloCube
+namespace HelloTexture
 {
     public class Window : GenericWindow
     {
@@ -35,14 +35,14 @@ namespace HelloCube
                 new InputLayout.Element[2]
                 {
                     new InputLayout.Element("POSITION", ElementSize.eFloat3),
-                    new InputLayout.Element("COLOR", ElementSize.eFlaot4)
+                    new InputLayout.Element("TEXCOORD", ElementSize.eFloat2)
                 });
 
             resourceLayout = new ResourceLayout(
-                new ResourceLayout.Element[2] {
-                    new ResourceLayout.Element(ResourceType.ConstantBufferView, 0),
-                    new ResourceLayout.Element(ResourceType.ConstantBufferView, 1)
-                });
+                new ResourceLayout.Element[] {
+                    new ResourceLayout.Element(ResourceType.ConstantBufferTable,0,2),
+                    new ResourceLayout.Element(ResourceType.ShaderResourceTable,0,1)
+                }, 1);
 
             graphicsPipelineState = new GraphicsPipelineState(vertexShader, pixelShader,
                 inputLayout, resourceLayout, new DepthStencilState());
@@ -56,9 +56,9 @@ namespace HelloCube
             Micos.Camera.Transform.Position = new Vector3(0, 0, -10);
             Micos.Camera.Transform.Forward = Vector3.Zero - Micos.Camera.Transform.Position;
 
-            Micos.Add(new Cube(3, 3, 3));
-
             Micos.Add(fpsCounter = new FpsCounter());
+
+            Micos.Add(new Grid(10, 10));
 
             IsVisible = true;
         }
@@ -72,7 +72,7 @@ namespace HelloCube
             Title = Program.AppName + " FPS: " + fpsCounter.Fps.ToString();
 
             GraphicsPipeline.Close();
-
+            
             Micos.Update();
         }
 

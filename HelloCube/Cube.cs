@@ -98,13 +98,14 @@ namespace HelloCube
             cameraBuffer.proj = Micos.Camera.Project;
             cameraBufferUploader.Update(ref cameraBuffer);
 
-            ResourceLayout.InputSlot[0] = cameraBufferUploader;
-            ResourceLayout.InputSlot[1] = cubeBufferUploader;
+            GraphicsPipeline.InputSlot[0] = cameraBufferUploader;
+            GraphicsPipeline.InputSlot[1] = cubeBufferUploader;
 
-            Manager.VertexBuffer = vertexBuffer;
-            Manager.IndexBuffer = indexBuffer;
+            GraphicsPipeline.InputAssemblerStage.VertexBuffer = vertexBuffer;
+            GraphicsPipeline.InputAssemblerStage.IndexBuffer = indexBuffer;
+            GraphicsPipeline.InputAssemblerStage.PrimitiveType = PrimitiveType.TriangleList;
 
-            Manager.DrawObjectIndexed(indexBuffer.Count);
+            GraphicsPipeline.PutObjectIndexed(indexBuffer.Count);
         }
 
         public Cube(int width,int height,int depth)
