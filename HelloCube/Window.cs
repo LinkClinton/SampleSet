@@ -42,7 +42,7 @@ namespace HelloCube
                 new ResourceLayout.Element[2] {
                     new ResourceLayout.Element(ResourceType.ConstantBufferView, 0),
                     new ResourceLayout.Element(ResourceType.ConstantBufferView, 1)
-                });
+                }, null);
 
             graphicsPipelineState = new GraphicsPipelineState(vertexShader, pixelShader,
                 inputLayout, resourceLayout, new DepthStencilState());

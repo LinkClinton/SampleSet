@@ -11,7 +11,7 @@ using Mico.Objects;
 using Builder;
 using Presenter;
 
-namespace HelloTexture
+namespace HelloBlend
 {
     public class Window : GenericWindow
     {
@@ -22,7 +22,19 @@ namespace HelloTexture
         private ResourceLayout resourceLayout;
         private GraphicsPipelineState graphicsPipelineState;
 
+        private BlendState blendState;
+
         private FpsCounter fpsCounter;
+
+        public void InitalizeBlendState()
+        {
+            blendState = new BlendState(true)
+            {
+                SourceBlend = BlendOption.SourceAlpha,
+                DestinationBlend = BlendOption.InverseSourceAlpha,
+                BlendOperation = BlendOperation.Add,
+            };
+        }
 
         public Window((string Title, int Width, int Height) Definition) : base(Definition)
         {
@@ -35,20 +47,19 @@ namespace HelloTexture
                 new InputLayout.Element[2]
                 {
                     new InputLayout.Element("POSITION", ElementSize.eFloat3),
-                    new InputLayout.Element("TEXCOORD", ElementSize.eFloat2)
+                    new InputLayout.Element("COLOR", ElementSize.eFlaot4)
                 });
 
             resourceLayout = new ResourceLayout(
-                new ResourceLayout.Element[] {
-                    new ResourceLayout.Element(ResourceType.ConstantBufferTable,0,2),
-                    new ResourceLayout.Element(ResourceType.ShaderResourceTable,0,1)
-                },
-                new StaticSampler[] {
-                    new StaticSampler(TextureAddressMode.Clamp,TextureFilter.MinMagMipLinear)
-                });
+                new ResourceLayout.Element[2] {
+                    new ResourceLayout.Element(ResourceType.ConstantBufferView, 0),
+                    new ResourceLayout.Element(ResourceType.ConstantBufferView, 1)
+                }, null);
+
+            InitalizeBlendState();
 
             graphicsPipelineState = new GraphicsPipelineState(vertexShader, pixelShader,
-                inputLayout, resourceLayout, new DepthStencilState());
+                inputLayout, resourceLayout, new DepthStencilState(), blendState);
 
             Micos.Camera = new Camera()
             {
@@ -58,10 +69,14 @@ namespace HelloTexture
 
             Micos.Camera.Transform.Position = new Vector3(0, 0, -10);
             Micos.Camera.Transform.Forward = Vector3.Zero - Micos.Camera.Transform.Position;
-
+            
+            Micos.Add(new Cube(3, 3, 3));
+            
             Micos.Add(fpsCounter = new FpsCounter());
 
-            Micos.Add(new Grid(20, 20));
+            CameraBuffer cameraBuffer = CameraBuffer.FromCamera(Micos.Camera);
+
+            Resource.CameraBuffer.Update(ref cameraBuffer);
 
             IsVisible = true;
         }
@@ -75,9 +90,8 @@ namespace HelloTexture
             Title = Program.AppName + " FPS: " + fpsCounter.Fps.ToString();
 
             GraphicsPipeline.Close();
-            
+
             Micos.Update();
         }
-
     }
 }
