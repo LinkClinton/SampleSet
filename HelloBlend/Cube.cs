@@ -88,13 +88,13 @@ namespace HelloBlend
             {
                 graphicsPipelineState = new GraphicsPipelineState(Window.vertexShader,
                     Window.pixelShader, Window.inputLayout, Window.resourceLayout,
-                    null, null, null);
+                    null, new DepthStencilState(true), null);
             }else
             {
                 graphicsPipelineState = new GraphicsPipelineState(Window.vertexShader,
                     Window.pixelShader, Window.inputLayout, Window.resourceLayout,
                     new RasterizerState() { CullMode = CullMode.CullNone },
-                    null, Window.blendState);
+                    new DepthStencilState(true), Window.blendState);
             }
         }
 

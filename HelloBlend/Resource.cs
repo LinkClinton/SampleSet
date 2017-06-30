@@ -14,13 +14,15 @@ namespace HelloBlend
     {
         public Matrix4x4 view;
         public Matrix4x4 proj;
+        public Vector4 position;
 
         public static CameraBuffer FromCamera(Mico.Objects.Camera camera)
         {
             return new CameraBuffer()
             {
                 view = camera,
-                proj = camera.Project
+                proj = camera.Project,
+                position = new Vector4(camera.Transform.Position, 1)
             };
         }
     }

@@ -69,12 +69,14 @@ namespace HelloBlend
 
             Micos.Camera.Transform.Position = new Vector3(0, 0, -10);
             Micos.Camera.Transform.Forward = Vector3.Zero - Micos.Camera.Transform.Position;
-
+            
             Micos.Add(new Cube(new Vector3(0, 0, 0),
                 new Vector3(3, 3, 3), new Vector4(1, 0, 0, 1), true));
 
             Micos.Add(new Cube(new Vector3(0, 0, 0),
-                new Vector3(5, 5, 5), new Vector4(0, 1, 1, 0.7f), false));
+                new Vector3(5, 5, 5), new Vector4(0, 1, 1, 0.5f), false));
+
+
 
 
             Micos.Add(fpsCounter = new FpsCounter());
