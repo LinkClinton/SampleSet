@@ -3,13 +3,11 @@
 struct VsInput
 {
     float3 position : POSITION;
-    float4 color : COLOR;
 };
 
 struct PsInput
 {
     float4 positionH : SV_Position;
-    float4 color : COLOR;
 };
 
 cbuffer MainCamera : register(b0)
@@ -21,6 +19,7 @@ cbuffer MainCamera : register(b0)
 cbuffer CubeBuffer : register(b1)
 {
     matrix world;
+    float4 color;
 };
 
 PsInput vs_main(VsInput input)
@@ -31,13 +30,10 @@ PsInput vs_main(VsInput input)
     result.positionH = mul(result.positionH, view);
     result.positionH = mul(result.positionH, proj);
     
-    result.color = input.color;
-
     return result;
 }
 
 float4 ps_main(PsInput input) : SV_Target
 {
-    return float4(input.color.xyz, 0.5f);
-    return input.color;
+    return color;
 }

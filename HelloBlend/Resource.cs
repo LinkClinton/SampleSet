@@ -28,6 +28,7 @@ namespace HelloBlend
     public struct CubeBuffer
     {
         public Matrix4x4 world;
+        public Vector4 color;
 
         public static CubeBuffer FromTransform(Mico.Shapes.Transform transform)
         {
@@ -41,13 +42,10 @@ namespace HelloBlend
     public struct Vertex
     {
         public float x, y, z;
-        public float r, g, b, a;
 
         public Vertex(float xpos, float ypos, float zpos)
         {
             x = xpos; y = ypos; z = zpos;
-
-            r = 0; g = 0; b = 0; a = 0;
         }
     }
 

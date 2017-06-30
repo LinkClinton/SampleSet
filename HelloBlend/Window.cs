@@ -15,14 +15,15 @@ namespace HelloBlend
 {
     public class Window : GenericWindow
     {
-        private Surface surface;
-        private VertexShader vertexShader;
-        private PixelShader pixelShader;
-        private InputLayout inputLayout;
-        private ResourceLayout resourceLayout;
-        private GraphicsPipelineState graphicsPipelineState;
+        public static Surface surface;
+        public static VertexShader vertexShader;
+        public static PixelShader pixelShader;
+        public static InputLayout inputLayout;
+        public static ResourceLayout resourceLayout;
 
-        private BlendState blendState;
+        public static GraphicsPipelineState graphicsPipelineState;
+
+        public static BlendState blendState;
 
         private FpsCounter fpsCounter;
 
@@ -44,10 +45,9 @@ namespace HelloBlend
             pixelShader = new PixelShader(Properties.Resources.shader, "ps_main");
 
             inputLayout = new InputLayout(
-                new InputLayout.Element[2]
+                new InputLayout.Element[]
                 {
-                    new InputLayout.Element("POSITION", ElementSize.eFloat3),
-                    new InputLayout.Element("COLOR", ElementSize.eFlaot4)
+                    new InputLayout.Element("POSITION", ElementSize.eFloat3)
                 });
 
             resourceLayout = new ResourceLayout(
@@ -59,7 +59,7 @@ namespace HelloBlend
             InitalizeBlendState();
 
             graphicsPipelineState = new GraphicsPipelineState(vertexShader, pixelShader,
-                inputLayout, resourceLayout, new DepthStencilState(), blendState);
+                inputLayout, resourceLayout, null, new DepthStencilState(), blendState);
 
             Micos.Camera = new Camera()
             {
@@ -69,9 +69,14 @@ namespace HelloBlend
 
             Micos.Camera.Transform.Position = new Vector3(0, 0, -10);
             Micos.Camera.Transform.Forward = Vector3.Zero - Micos.Camera.Transform.Position;
-            
-            Micos.Add(new Cube(3, 3, 3));
-            
+
+            Micos.Add(new Cube(new Vector3(0, 0, 0),
+                new Vector3(3, 3, 3), new Vector4(1, 0, 0, 1), true));
+
+            Micos.Add(new Cube(new Vector3(0, 0, 0),
+                new Vector3(5, 5, 5), new Vector4(0, 1, 1, 0.7f), false));
+
+
             Micos.Add(fpsCounter = new FpsCounter());
 
             CameraBuffer cameraBuffer = CameraBuffer.FromCamera(Micos.Camera);

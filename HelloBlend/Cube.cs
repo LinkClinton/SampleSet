@@ -20,6 +20,8 @@ namespace HelloBlend
         private CubeBuffer cubeBuffer;
         private ConstantBuffer<CubeBuffer> cubeBufferUploader;
 
+        private GraphicsPipelineState graphicsPipelineState;
+
         static Cube()
         {
             uint[] index = new uint[36] {
@@ -43,14 +45,6 @@ namespace HelloBlend
             vertex[6] = new Vertex(halfwidth, halfheight, halfdepth);
             vertex[7] = new Vertex(halfwidth, -halfheight, halfdepth);
 
-            for (int i = 0; i < vertex.Length; i++)
-            {
-                vertex[i].r = 1;
-                vertex[i].g = 0;
-                vertex[i].b = 0;
-                vertex[i].a = 1f;
-            }
-
             vertexBuffer = new VertexBuffer<Vertex>(vertex);
             indexBuffer = new IndexBuffer<uint>(index);
         }
@@ -73,15 +67,35 @@ namespace HelloBlend
             GraphicsPipeline.InputAssemblerStage.IndexBuffer = indexBuffer;
             GraphicsPipeline.InputAssemblerStage.PrimitiveType = PrimitiveType.TriangleList;
 
+            GraphicsPipeline.Reset(graphicsPipelineState);
+
             GraphicsPipeline.PutObjectIndexed(indexBuffer.Count);
         }
 
-        public Cube(int width, int height, int depth)
+        public Cube(Vector3 position, Vector3 size, Vector4 color, bool IsCull)
         {
-            Transform.Scale = new Vector3(width, height, depth);
+            Transform.Scale = new Vector3(size.X, size.Y, size.Z);
+            Transform.Position = new Vector3(position.X, position.Y, position.Z);
 
-            cubeBuffer = new CubeBuffer();
+            cubeBuffer = new CubeBuffer()
+            {
+                color = color
+            };
+
             cubeBufferUploader = new ConstantBuffer<CubeBuffer>(cubeBuffer);
+
+            if (IsCull is true)
+            {
+                graphicsPipelineState = new GraphicsPipelineState(Window.vertexShader,
+                    Window.pixelShader, Window.inputLayout, Window.resourceLayout,
+                    null, null, null);
+            }else
+            {
+                graphicsPipelineState = new GraphicsPipelineState(Window.vertexShader,
+                    Window.pixelShader, Window.inputLayout, Window.resourceLayout,
+                    new RasterizerState() { CullMode = CullMode.CullNone },
+                    null, Window.blendState);
+            }
         }
 
     }
