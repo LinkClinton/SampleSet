@@ -15,7 +15,7 @@ namespace HelloTexture
 {
     public class Window : GenericWindow
     {
-        private Surface surface;
+        private Present presenter;
         private VertexShader vertexShader;
         private PixelShader pixelShader;
         private InputLayout inputLayout;
@@ -24,9 +24,9 @@ namespace HelloTexture
 
         private FpsCounter fpsCounter;
 
-        public Window((string Title, int Width, int Height) Definition) : base(Definition)
+        public Window(string Title, int Width, int Height) : base(Title, Width, Height)
         {
-            surface = new Surface(Handle, true);
+            presenter = new Present(Handle, true);
 
             vertexShader = new VertexShader(Properties.Resources.shader, "vs_main");
             pixelShader = new PixelShader(Properties.Resources.shader, "ps_main");
@@ -48,7 +48,7 @@ namespace HelloTexture
                 });
 
             graphicsPipelineState = new GraphicsPipelineState(vertexShader, pixelShader,
-                inputLayout, resourceLayout, new DepthStencilState());
+                inputLayout, resourceLayout, new RasterizerState(), new DepthStencilState(), new BlendState());
 
             Micos.Camera = new Camera()
             {
@@ -68,7 +68,7 @@ namespace HelloTexture
 
         public override void OnUpdate(object sender)
         {
-            GraphicsPipeline.Open(graphicsPipelineState, surface);
+            GraphicsPipeline.Open(graphicsPipelineState, presenter);
 
             Micos.Exports();
 

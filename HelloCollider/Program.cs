@@ -15,7 +15,7 @@ namespace HelloCollider
 
         static void Main(string[] args)
         {
-            Application.Add(new Window((AppName, (int)(800 * Engine.AppScale), (int)(600 * Engine.AppScale))));
+            Application.Add(new Window(AppName, (int)(800 * Engine.AppScale), (int)(600 * Engine.AppScale)));
 
             Application.RunLoop();
         }

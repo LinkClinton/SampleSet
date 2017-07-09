@@ -15,7 +15,7 @@ namespace HelloBlend
 {
     public class Window : GenericWindow
     {
-        public static Surface surface;
+        public static Present prenster;
         public static VertexShader vertexShader;
         public static PixelShader pixelShader;
         public static InputLayout inputLayout;
@@ -37,10 +37,10 @@ namespace HelloBlend
             };
         }
 
-        public Window((string Title, int Width, int Height) Definition) : base(Definition)
+        public Window(string Title, int Width, int Height) : base(Title,Width,Height)
         {
-            surface = new Surface(Handle, true);
-
+            prenster = new Present(Handle, true);
+            
             vertexShader = new VertexShader(Properties.Resources.shader, "vs_main");
             pixelShader = new PixelShader(Properties.Resources.shader, "ps_main");
 
@@ -70,14 +70,11 @@ namespace HelloBlend
             Micos.Camera.Transform.Position = new Vector3(0, 0, -10);
             Micos.Camera.Transform.Forward = Vector3.Zero - Micos.Camera.Transform.Position;
             
-            Micos.Add(new Cube(new Vector3(0, 0, 0),
+            Micos.Add(new Cube(new Vector3(0, 0, 3),
                 new Vector3(3, 3, 3), new Vector4(1, 0, 0, 1), true));
 
             Micos.Add(new Cube(new Vector3(0, 0, 0),
                 new Vector3(5, 5, 5), new Vector4(0, 1, 1, 0.5f), false));
-
-
-
 
             Micos.Add(fpsCounter = new FpsCounter());
 
@@ -87,10 +84,10 @@ namespace HelloBlend
 
             IsVisible = true;
         }
-
+    
         public override void OnUpdate(object sender)
         {
-            GraphicsPipeline.Open(graphicsPipelineState, surface);
+            GraphicsPipeline.Open(graphicsPipelineState, prenster);
 
             Micos.Exports();
 

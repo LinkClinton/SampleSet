@@ -14,16 +14,13 @@ namespace HelloWorld
 {
     public class Window : GenericWindow
     {
-        private Surface surface;
+        private Present presenter;
 
         private FpsCounter fpsCounter;
 
-        public Window((string Title, int Width, int Height) Definition) : base(Definition)
+        public Window(string Title, int Width, int Height) : base(Title, Width, Height)
         {
-            surface = new Surface(Handle, true)
-            {
-                BackGround = (1, 0, 0, 1)
-            };
+            presenter = new Present(Handle, true);
 
             IsVisible = true;
 

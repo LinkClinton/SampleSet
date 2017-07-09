@@ -68,7 +68,7 @@ namespace HelloBlend
             GraphicsPipeline.InputAssemblerStage.PrimitiveType = PrimitiveType.TriangleList;
 
             GraphicsPipeline.Reset(graphicsPipelineState);
-
+            
             GraphicsPipeline.PutObjectIndexed(indexBuffer.Count);
         }
 
@@ -89,11 +89,11 @@ namespace HelloBlend
                 graphicsPipelineState = new GraphicsPipelineState(Window.vertexShader,
                     Window.pixelShader, Window.inputLayout, Window.resourceLayout,
                     null, new DepthStencilState(true), null);
-            }else
+            }
+            else
             {
                 graphicsPipelineState = new GraphicsPipelineState(Window.vertexShader,
-                    Window.pixelShader, Window.inputLayout, Window.resourceLayout,
-                    new RasterizerState() { CullMode = CullMode.CullNone },
+                    Window.pixelShader, Window.inputLayout, Window.resourceLayout, null,
                     new DepthStencilState(true), Window.blendState);
             }
         }

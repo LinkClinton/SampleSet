@@ -17,8 +17,8 @@ namespace HelloBlend
         {
             Resource.Initalize();
 
-            Application.Add(new Window((AppName,
-                800 * (int)Engine.AppScale, 600 * (int)Engine.AppScale)));
+            Application.Add(new Window(AppName,
+                800 * (int)Engine.AppScale, 600 * (int)Engine.AppScale));
 
             Application.RunLoop();
         }

@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>HelloTexture</RootNamespace>
     <AssemblyName>HelloTexture</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -79,9 +79,9 @@
       <Project>{5809f77e-dbd1-462c-92c1-358cd212fc71}</Project>
       <Name>Mico</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Presenter\PresenterDX12\PresenterDX12.csproj">
-      <Project>{e0ff994a-36ac-4522-a81b-d85327286ed3}</Project>
-      <Name>PresenterDX12</Name>
+    <ProjectReference Include="..\..\Presenter\Presenter\Presenter.csproj">
+      <Project>{517b86eb-b3e9-4fa5-8034-c54475dd3009}</Project>
+      <Name>Presenter</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

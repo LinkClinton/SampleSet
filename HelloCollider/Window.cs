@@ -17,7 +17,7 @@ namespace HelloCollider
     public class Window : GenericWindow
     {
 
-        private Surface surface;
+        private Present presenter;
 
         private VertexShader vertexShader;
         private PixelShader pixelShader;
@@ -29,11 +29,11 @@ namespace HelloCollider
         private FpsCounter fpsCounter;
 
 
-        public Window((string Title, int Width, int Height) Definition) : base(Definition)
+        public Window(string Title, int Width, int Height) : base(Title, Width, Height)
         {
             IsVisible = true;
 
-            surface = new Surface(Handle, true);
+            presenter = new Present(Handle, true);
 
             vertexShader = new VertexShader(Properties.Resources.shader, "vs_main");
             pixelShader = new PixelShader(Properties.Resources.shader, "ps_main");
@@ -52,11 +52,11 @@ namespace HelloCollider
                 });
 
             graphicsPipelineState = new GraphicsPipelineState(vertexShader, pixelShader, inputLayout,
-                resourceLayout, new DepthStencilState(true));
+                resourceLayout, new RasterizerState() { FillMode = FillMode.Wireframe}, new DepthStencilState(true), new BlendState());
 
             Micos.Camera = new Camera();
             Micos.Camera.Transform.Position = new Vector3(0, 0, -100);
-
+            
             Micos.Camera.Project = TMatrix.CreatePerspectiveFieldOfViewLH((float)Math.PI * 0.55f,
                 (float)Width / Height, 1.0f, 2000.0f);
 
@@ -93,15 +93,16 @@ namespace HelloCollider
 
         public override void OnUpdate(object sender)
         {
-            GraphicsPipeline.Open(graphicsPipelineState, surface);
+             GraphicsPipeline.Open(graphicsPipelineState, presenter);
 
             Micos.Exports();
-
+            
             SetTitle(Program.AppName + " FPS: " + fpsCounter.Fps);
-
+            
             GraphicsPipeline.Close();
-
+            
             Micos.Update();
+            
 
             base.OnUpdate(sender);
         }

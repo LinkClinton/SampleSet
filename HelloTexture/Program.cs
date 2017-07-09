@@ -18,8 +18,8 @@ namespace HelloTexture
         {
             Resource.Initalize();
 
-            Application.Add(new Window((AppName,
-                (int)(Engine.AppScale * 800), (int)(Engine.AppScale * 600))));
+            Application.Add(new Window(AppName,
+                (int)(Engine.AppScale * 800), (int)(Engine.AppScale * 600)));
 
             Application.RunLoop();
 
