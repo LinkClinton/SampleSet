@@ -61,7 +61,7 @@ namespace HelloTexture
             Resource.GridBuffer.Update(ref gridBuffer);
             Resource.CameraBuffer.Update(ref cameraBuffer);
 
-            GraphicsPipeline.SetHeaps(new ResourceHeap[] { Resource.heap });
+            GraphicsPipeline.SetHeaps(new ResourceHeap[] { Resource.heap1 }); //If you do not set this, the draw will be falled.
 
             GraphicsPipeline.InputSlot[0] = Resource.ConstantBufferTable;
             GraphicsPipeline.InputSlot[1] = Resource.TextureTable;

@@ -40,31 +40,36 @@ namespace HelloTexture
 
     public static class Resource
     {
-        public static ResourceHeap heap;
-        
+        public static ResourceHeap heap1;
+        public static ResourceHeap heap2;
+
         public static ConstantBuffer<CameraBuffer> CameraBuffer;
         public static ConstantBuffer<GridBuffer> GridBuffer;
 
         public static Texture2D Texture;
+        public static Texture2D Texture2;
 
         public static ResourceTable ConstantBufferTable;
         public static ResourceTable TextureTable;
 
         public static void Initalize()
         {
-            heap = new ResourceHeap(3);
+            heap1 = new ResourceHeap(3);
+            heap2 = new ResourceHeap(2);
 
             CameraBuffer = new ConstantBuffer<CameraBuffer>(1);
             GridBuffer = new ConstantBuffer<GridBuffer>(1);
 
             Texture = Texture2D.FromFile(@"..\..\Resources\Dream.png");
+            Texture2 = Texture2D.FromFile(@"..\..\Resources\Dream.png");
             
-            heap.AddResource(CameraBuffer);
-            heap.AddResource(GridBuffer);
-            heap.AddResource(Texture);
+            heap1.AddResource(CameraBuffer);
+            heap1.AddResource(GridBuffer);
+            heap1.AddResource(Texture);
+            heap2.AddResource(Texture2);
 
-            ConstantBufferTable = new ResourceTable(heap, 0);
-            TextureTable = new ResourceTable(heap, 2);
+            ConstantBufferTable = new ResourceTable(heap1, 0);
+            TextureTable = new ResourceTable(heap1, 2);
         }
     }
 }

@@ -24,6 +24,7 @@ cbuffer Transform : register(b1)
 }
 
 Texture2D Tex : register(t0);
+//Texture2D Tex2 : register(t1);
 
 
 SamplerState Sampler : register(s0);

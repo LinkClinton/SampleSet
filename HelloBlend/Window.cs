@@ -15,7 +15,7 @@ namespace HelloBlend
 {
     public class Window : GenericWindow
     {
-        public static Present prenster;
+        public static Surface prenster;
         public static VertexShader vertexShader;
         public static PixelShader pixelShader;
         public static InputLayout inputLayout;
@@ -85,6 +85,19 @@ namespace HelloBlend
             IsVisible = true;
         }
     
+        private void TestKeyInput()
+        {
+            string result = "Key is down: ";
+
+            for (int i = 0; i < 255; i++)
+            {
+                if (Application.IsKeyDown((KeyCode)i))
+                    result += " " + ((KeyCode)i).ToString();
+            }
+
+            Console.WriteLine(result);
+        }
+
         public override void OnUpdate(object sender)
         {
             GraphicsPipeline.Open(graphicsPipelineState, prenster);
@@ -96,6 +109,10 @@ namespace HelloBlend
             GraphicsPipeline.Close();
 
             Micos.Update();
+
+            TestKeyInput();
+
+            GraphicsPipeline.WaitFlush();
         }
     }
 }

@@ -68,7 +68,7 @@ namespace HelloCollider
             GraphicsPipeline.InputAssemblerStage.PrimitiveType = PrimitiveType.TriangleList;
 
             GraphicsPipeline.PutObjectIndexed(indexBuffer.Count);
-
+            
             base.OnExport(Unknown);
         }
 

@@ -66,6 +66,30 @@ namespace HelloTexture
             IsVisible = true;
         }
 
+        public override void OnDestroyed(object sender)
+        {
+        }
+
+        public override void OnKeyEvent(object sender, KeyEventArgs e)
+        {
+        }
+
+        public override void OnMouseClick(object sender, MouseClickEventArgs e)
+        {
+        }
+
+        public override void OnMouseMove(object sender, MouseMoveEventArgs e)
+        {
+        }
+
+        public override void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+        }
+
+        public override void OnSizeChange(object sender, SizeChangeEventArgs e)
+        {
+        }
+
         public override void OnUpdate(object sender)
         {
             GraphicsPipeline.Open(graphicsPipelineState, presenter);
@@ -77,6 +101,8 @@ namespace HelloTexture
             GraphicsPipeline.Close();
             
             Micos.Update();
+
+            GraphicsPipeline.WaitFlush();
         }
 
     }

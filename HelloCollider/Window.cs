@@ -93,7 +93,7 @@ namespace HelloCollider
 
         public override void OnUpdate(object sender)
         {
-             GraphicsPipeline.Open(graphicsPipelineState, presenter);
+            GraphicsPipeline.Open(graphicsPipelineState, presenter);
 
             Micos.Exports();
             
@@ -102,8 +102,8 @@ namespace HelloCollider
             GraphicsPipeline.Close();
             
             Micos.Update();
-            
 
+            GraphicsPipeline.WaitFlush();
             base.OnUpdate(sender);
         }
     }
