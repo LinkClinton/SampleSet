@@ -11,7 +11,7 @@ using Mico.Objects;
 using Builder;
 using Presenter;
 
-namespace HelloCube
+namespace HelloTextureFace
 {
     public class Window : GenericWindow
     {
@@ -22,7 +22,39 @@ namespace HelloCube
         private ResourceLayout resourceLayout;
         private GraphicsPipelineState graphicsPipelineState;
 
+        private TextureFace textureFace;
+
         private FpsCounter fpsCounter;
+
+        private void CreateTextureFace()
+        {
+            textureFace = new TextureFace(Width, Height)
+            {
+                BackGround = new Vector4(1, 0, 0, 1)
+            };
+
+            Resource.heap1.AddResource(textureFace);
+
+            Resource.TextureFaceTable = new ResourceTable(Resource.heap1, 3);
+
+            Grid gridTexture = new Grid(20, 20, Resource.TextureTable);
+
+            Micos.Add(gridTexture);
+
+            Micos.Update();
+
+            GraphicsPipeline.Open(graphicsPipelineState, textureFace);
+
+            Micos.Exports();
+            
+            GraphicsPipeline.Close();
+
+            GraphicsPipeline.WaitFlush();
+
+            Micos.Remove(gridTexture);
+
+            Micos.Update();
+        }
 
         public Window(string Title, int Width, int Height) : base(Title, Width, Height)
         {
@@ -35,14 +67,17 @@ namespace HelloCube
                 new InputLayout.Element[2]
                 {
                     new InputLayout.Element("POSITION", ElementSize.eFloat3),
-                    new InputLayout.Element("COLOR", ElementSize.eFlaot4)
+                    new InputLayout.Element("TEXCOORD", ElementSize.eFloat2)
                 });
 
             resourceLayout = new ResourceLayout(
-                new ResourceLayout.Element[2] {
-                    new ResourceLayout.Element(ResourceType.ConstantBufferView, 0),
-                    new ResourceLayout.Element(ResourceType.ConstantBufferView, 1)
-                }, null);
+                new ResourceLayout.Element[] {
+                    new ResourceLayout.Element(ResourceType.ConstantBufferTable,0,2),
+                    new ResourceLayout.Element(ResourceType.ShaderResourceTable,0,1)
+                },
+                new StaticSampler[] {
+                    new StaticSampler(TextureAddressMode.Clamp,TextureFilter.MinMagMipLinear)
+                });
 
             graphicsPipelineState = new GraphicsPipelineState(vertexShader, pixelShader,
                 inputLayout, resourceLayout, new RasterizerState(), new DepthStencilState(), new BlendState());
@@ -56,23 +91,49 @@ namespace HelloCube
             Micos.Camera.Transform.Position = new Vector3(0, 0, -10);
             Micos.Camera.Transform.Forward = Vector3.Zero - Micos.Camera.Transform.Position;
 
-            Micos.Add(new Cube(3, 3, 3));
+            CreateTextureFace();
 
             Micos.Add(fpsCounter = new FpsCounter());
 
+            Micos.Add(new Grid(20, 20, Resource.TextureFaceTable));
+
             IsVisible = true;
+        }
+
+        public override void OnDestroyed(object sender)
+        {
+        }
+
+        public override void OnKeyEvent(object sender, KeyEventArgs e)
+        {
+        }
+
+        public override void OnMouseClick(object sender, MouseClickEventArgs e)
+        {
+        }
+
+        public override void OnMouseMove(object sender, MouseMoveEventArgs e)
+        {
+        }
+
+        public override void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+        }
+
+        public override void OnSizeChange(object sender, SizeChangeEventArgs e)
+        {
         }
 
         public override void OnUpdate(object sender)
         {
             GraphicsPipeline.Open(graphicsPipelineState, presenter);
-
+            
             Micos.Exports();
 
             Title = Program.AppName + " FPS: " + fpsCounter.Fps.ToString();
 
             GraphicsPipeline.Close();
-
+            
             Micos.Update();
 
             GraphicsPipeline.WaitFlush();

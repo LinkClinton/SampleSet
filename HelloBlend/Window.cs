@@ -15,7 +15,7 @@ namespace HelloBlend
 {
     public class Window : GenericWindow
     {
-        public static Surface prenster;
+        public static Present prenster;
         public static VertexShader vertexShader;
         public static PixelShader pixelShader;
         public static InputLayout inputLayout;
@@ -109,8 +109,6 @@ namespace HelloBlend
             GraphicsPipeline.Close();
 
             Micos.Update();
-
-            TestKeyInput();
 
             GraphicsPipeline.WaitFlush();
         }

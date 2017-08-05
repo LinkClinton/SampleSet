@@ -93,7 +93,7 @@ namespace HelloTexture
         public override void OnUpdate(object sender)
         {
             GraphicsPipeline.Open(graphicsPipelineState, presenter);
-
+            
             Micos.Exports();
 
             Title = Program.AppName + " FPS: " + fpsCounter.Fps.ToString();
